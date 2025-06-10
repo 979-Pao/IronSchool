@@ -1,6 +1,10 @@
+package test;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import classes.Course;
+import classes.Teacher;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CourseTest {

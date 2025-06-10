@@ -1,7 +1,8 @@
+package classes;
 
 import java.util.UUID;
 
-class Course {
+public class Course {
 
     private final String courseId;
     private String name;
