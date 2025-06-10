@@ -1,13 +1,19 @@
+package model;
+
 import java.util.UUID;
 
 public class Teacher {
-    private final String teacherId;
+    private static int idCounter = 1;
+
+    private final String uuid;
+    private final String teacherId; // ID legible tipo T001
     private String name;
     private double salary;
 
     // Constructor
     public Teacher(String name, double salary) {
-        this.teacherId = UUID.randomUUID().toString(); // Generación automática de teacherId
+        this.uuid = UUID.randomUUID().toString(); // Generación automática de teacherId
+        this.teacherId = String.format("T%03d", idCounter++);     // ID visible
         this.name = name;
         this.salary = salary;
     }

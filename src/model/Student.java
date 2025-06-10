@@ -1,9 +1,13 @@
-package src;
+package model;
 
 import java.util.UUID;
 
 public class Student {
-    private final String studentId;
+
+    private static int idCounter = 1;
+
+    private final String uuid;      // UUID para uso interno
+    private final String studentId;// ID legible tipo S001
     private String name;
     private String address;
     private String email;
@@ -11,7 +15,8 @@ public class Student {
 
     // Constructor
     public Student(String name, String address, String email) {
-        this.studentId = UUID.randomUUID().toString(); // Generación automática de studentId
+        this.uuid = UUID.randomUUID().toString(); // Generación automática de studentId
+        this.studentId = String.format("S%03d", idCounter++); // ID visible
         this.name = name;
         this.address = address;
         this.email = email;
@@ -56,12 +61,21 @@ public class Student {
         this.course = course;
     }
 
-    // Método para inscribir a un estudiante en un curso
+    // Metodo para inscribir a un estudiante en un curso
     public void enroll(Course course) {
         this.course = course;
         // Actualizamos el dinero ganado por el curso
         if (course != null) {
             course.addMoneyEarned(course.getPrice());
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Student ID: " + studentId
+                + ", Name: " + name
+                + ", Address: " + address
+                + ", Email: " + email
+                + ", Course: " + (course != null ? course.getName() : "Not Enrolled");
     }
 }

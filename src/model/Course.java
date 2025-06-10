@@ -1,20 +1,25 @@
+package model;
 
 import java.util.UUID;
 
-class Course {
+public class Course {
 
-    private final String courseId;
+    private static int idCounter = 1;
+
+    private final String uuid;      // UUID para uso interno
+    private final String courseId;  // ID legible tipo C001
     private String name;
     private double price;
     private double moneyEarned;
-    private Teacher teacher;  // Variable nullable
+    private Teacher teacher;
 
     public Course(String name, double price) {
-        this.courseId = UUID.randomUUID().toString(); // Generacion automatica de courseId
+        this.uuid = UUID.randomUUID().toString();                // Uso interno
+        this.courseId = String.format("C%03d", idCounter++);     // ID visible
         this.name = name;
         this.price = price;
         this.moneyEarned = 0.0;
-        this.teacher = null; // Inicialmente no hay profesor asignado
+        this.teacher = null;
     }
 
     // Funciones Getters
