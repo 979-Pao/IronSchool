@@ -1,10 +1,8 @@
 package test;
 
-import model.Course;
-import model.Student;
-import model.Teacher;
-
 import org.junit.jupiter.api.Test;
+import classes.Teacher;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TeacherTest {

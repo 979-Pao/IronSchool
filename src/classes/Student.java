@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:src/model/Student.java
 package model;
+========
+package classes;
+>>>>>>>> origin/dev:src/classes/Student.java
 
 import java.util.UUID;
 
