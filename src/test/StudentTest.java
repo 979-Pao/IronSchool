@@ -1,9 +1,5 @@
 package test;
 
-import model.Course;
-import model.Student;
-import model.Teacher;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import classes.Course;

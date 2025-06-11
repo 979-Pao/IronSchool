@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:src/model/Course.java
-package model;
-========
 package classes;
->>>>>>>> origin/dev:src/classes/Course.java
 
 import java.util.UUID;
 
