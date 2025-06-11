@@ -11,6 +11,25 @@ public class Main {
         List<Course> courses = new ArrayList<>();
         List<Student> students = new ArrayList<>();
 
+        System.out.print("Enter the name of the school: ");
+        String schoolName = scanner.nextLine();
+        System.out.println("\n==============================");
+        System.out.println("  " + schoolName.toUpperCase() + " - SCHOOL MANAGEMENT SYSTEM");
+        System.out.println("==============================");
+        System.out.println("Welcome! You can manage teachers, courses and students from this system.");
+        System.out.println("Available commands:");
+        System.out.println(" - ENROLL [STUDENT_ID] [COURSE_ID]       -> Enroll student in a course");
+        System.out.println(" - ASSIGN [TEACHER_ID] [COURSE_ID]       -> Assign teacher to a course");
+        System.out.println(" - SHOW COURSES                          -> List all courses");
+        System.out.println(" - SHOW STUDENTS                         -> List all students");
+        System.out.println(" - SHOW TEACHERS                         -> List all teachers");
+        System.out.println(" - LOOKUP COURSE [COURSE_ID]             -> View details of a course");
+        System.out.println(" - LOOKUP STUDENT [STUDENT_ID]           -> View details of a student");
+        System.out.println(" - LOOKUP TEACHER [TEACHER_ID]           -> View details of a teacher");
+        System.out.println(" - SHOW_PROFIT                           -> Calculate school profit");
+        System.out.println(" - EXIT                                  -> Exit the system");
+        System.out.println("==============================\n");
+
         // Teachers
         System.out.print("Enter number of teachers to create: ");
         int teacherCount = Integer.parseInt(scanner.nextLine());
@@ -146,8 +165,18 @@ public class Main {
                             System.out.println("Unknown LOOKUP type.");
                     }
                     break;
-
+                case "SHOWPROFIT":
+                case "SHOW_PROFIT":
+                    double totalEarned = courses.stream().mapToDouble(Course::getMoneyEarned).sum();
+                    double totalSalaries = teachers.stream().mapToDouble(Teacher::getSalary).sum();
+                    double profit = totalEarned - totalSalaries;
+                    System.out.printf("Profit: $%.2f\n", profit);
+                break;
+                default:
+                    System.out.println("Unknown command.");
             }
         }
+        System.out.println("Exiting system. Goodbye!");
+        scanner.close();
     }
 }
