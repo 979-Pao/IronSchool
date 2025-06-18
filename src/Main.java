@@ -30,41 +30,58 @@ public class Main {
         System.out.println(" - EXIT                                  -> Exit the system");
         System.out.println("==============================\n");
 
-        // Teachers
-        System.out.print("Enter number of teachers to create: ");
-        int teacherCount = Integer.parseInt(scanner.nextLine());
+// Teachers
+        int teacherCount = readInt(scanner, "Enter number of teachers to create: ");
         for (int i = 0; i < teacherCount; i++) {
             System.out.println("Enter details for Teacher " + (i + 1) + ":");
-            System.out.print("Name: ");
-            String name = scanner.nextLine();
-            System.out.print("Salary: ");
-            double salary = Double.parseDouble(scanner.nextLine());
+            String name;
+            do {
+                System.out.print("Name: ");
+                name = scanner.nextLine();
+                if (!isValidName(name)) {
+                    System.out.println("Invalid name. Names should not contain numbers.");
+                }
+            } while (!isValidName(name));
+
+            double salary = readDouble(scanner, "Salary: ");
             teachers.add(new Teacher(name, salary));
         }
 
         // Courses
-        System.out.print("\nEnter number of courses to create: ");
-        int courseCount = Integer.parseInt(scanner.nextLine());
+        int courseCount = readInt(scanner, "\nEnter number of courses to create: ");
         for (int i = 0; i < courseCount; i++) {
             System.out.println("Enter details for Course " + (i + 1) + ":");
             System.out.print("Name: ");
             String name = scanner.nextLine();
-            System.out.print("Price: ");
-            double price = Double.parseDouble(scanner.nextLine());
+            double price = readDouble(scanner, "Price: ");
             courses.add(new Course(name, price));
         }
 
         // Students
-        System.out.print("\nEnter number of students to create: ");
-        int studentCount = Integer.parseInt(scanner.nextLine());
+        int studentCount = readInt(scanner, "\nEnter number of students to create: ");
         for (int i = 0; i < studentCount; i++) {
             System.out.println("Enter details for Student " + (i + 1) + ":");
-            System.out.print("Name: ");
-            String name = scanner.nextLine();
+            String name;
+            do {
+                System.out.print("Name: ");
+                name = scanner.nextLine();
+                if (!isValidName(name)) {
+                    System.out.println("Invalid name. Names should not contain numbers.");
+                }
+            } while (!isValidName(name));
+
             System.out.print("Address: ");
             String address = scanner.nextLine();
-            System.out.print("Email: ");
-            String email = scanner.nextLine();
+
+            String email;
+            do {
+                System.out.print("Email: ");
+                email = scanner.nextLine();
+                if (!isValidEmail(email)) {
+                    System.out.println("Invalid email format. Please enter a valid email (must contain '@').");
+                }
+            } while (!isValidEmail(email));
+
             students.add(new Student(name, address, email));
         }
 
@@ -171,12 +188,58 @@ public class Main {
                     double totalSalaries = teachers.stream().mapToDouble(Teacher::getSalary).sum();
                     double profit = totalEarned - totalSalaries;
                     System.out.printf("Profit: $%.2f\n", profit);
-                break;
+                    break;
                 default:
                     System.out.println("Unknown command.");
             }
         }
         System.out.println("Exiting system. Goodbye!");
         scanner.close();
+    }
+
+    private static boolean isValidName(String name) {
+        return !name.matches(".*\\d.*");
+    }
+
+    private static boolean isValidEmail(String email) {
+        return email.contains("@") && email.indexOf('@') != 0 && email.indexOf('@') != email.length() - 1;
+    }
+
+    private static int readInt(Scanner scanner, String message) {
+        int number = -1;
+        while (true) {
+            System.out.print(message);
+            String input = scanner.nextLine();
+            try {
+                number = Integer.parseInt(input);
+                if (number >= 0) {
+                    break;
+                } else {
+                    System.out.println("Please enter a positive number.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input, please. Try again.");
+            }
+        }
+        return number;
+    }
+
+    private static double readDouble(Scanner scanner, String message) {
+        double number = -1;
+        while (true) {
+            System.out.print(message);
+            String input = scanner.nextLine();
+            try {
+                number = Double.parseDouble(input);
+                if (number >= 0) {
+                    break;
+                } else {
+                    System.out.println("Please enter a positive number.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input, please. Try again.");
+            }
+        }
+        return number;
     }
 }
