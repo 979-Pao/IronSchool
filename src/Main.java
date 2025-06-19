@@ -218,7 +218,7 @@ public class Main {
                     System.out.println("Please enter a positive number.");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input, please. Try again.");
+                System.out.println("Invalid input. Enter a numeric value.");
             }
         }
         return number;
