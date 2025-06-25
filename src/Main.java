@@ -21,16 +21,21 @@ public class Main {
         System.out.println(" - ENROLL [STUDENT_ID] [COURSE_ID]       -> Enroll student in a course");
         System.out.println(" - ASSIGN [TEACHER_ID] [COURSE_ID]       -> Assign teacher to a course");
         System.out.println(" - SHOW COURSES                          -> List all courses");
+        System.out.println(" - SHOW COURSES [TEACHER_ID]             -> List courses taught by a teacher");
         System.out.println(" - SHOW STUDENTS                         -> List all students");
+        System.out.println(" - SHOW STUDENTS [COURSE_ID]             -> List students in a specific course");
         System.out.println(" - SHOW TEACHERS                         -> List all teachers");
+        System.out.println(" - SHOW MONEY EARNED                     -> Show total money earned from courses");
+        System.out.println(" - SHOW MONEY SPENT                      -> Show total money spent on salaries");
+        System.out.println(" - SHOW STATS                            -> Display school statistics");
+        System.out.println(" - SHOW PROFIT                           -> Calculate school profit");
         System.out.println(" - LOOKUP COURSE [COURSE_ID]             -> View details of a course");
         System.out.println(" - LOOKUP STUDENT [STUDENT_ID]           -> View details of a student");
         System.out.println(" - LOOKUP TEACHER [TEACHER_ID]           -> View details of a teacher");
-        System.out.println(" - SHOW_PROFIT                           -> Calculate school profit");
         System.out.println(" - EXIT                                  -> Exit the system");
         System.out.println("==============================\n");
 
-// Teachers
+        // Teachers
         int teacherCount = readInt(scanner, "Enter number of teachers to create: ");
         for (int i = 0; i < teacherCount; i++) {
             System.out.println("Enter details for Teacher " + (i + 1) + ":");
@@ -91,7 +96,8 @@ public class Main {
             System.out.print("> ");
             String input = scanner.nextLine().trim();
 
-            if (input.equalsIgnoreCase("EXIT")) break;
+            if (input.equalsIgnoreCase("EXIT"))
+                break;
 
             String[] parts = input.split(" ");
             String command = parts[0].toUpperCase();
@@ -137,18 +143,83 @@ public class Main {
 
                 case "SHOW":
                     if (parts.length < 2) {
-                        System.out.println("Usage: SHOW [COURSES|STUDENTS|TEACHERS]");
+                        System.out.println("Usage: SHOW [COURSES|STUDENTS|TEACHERS|MONEY|STATS]");
                         break;
                     }
                     switch (parts[1].toUpperCase()) {
                         case "COURSES":
-                            courses.forEach(System.out::println);
+                            if (parts.length > 2) {
+                                String teacherId = parts[2];
+                                courses.stream()
+                                        .filter(c -> c.getTeacher() != null &&
+                                                c.getTeacher().getTeacherId().equals(teacherId))
+                                        .forEach(System.out::println);
+                            } else {
+                                courses.forEach(System.out::println);
+                            }
                             break;
                         case "STUDENTS":
-                            students.forEach(System.out::println);
+                            if (parts.length > 2) {
+                                String courseId = parts[2];
+                                students.stream()
+                                        .filter(s -> s.getCourse() != null &&
+                                                s.getCourse().getCourseId().equals(courseId))
+                                        .forEach(System.out::println);
+                            } else {
+                                students.forEach(System.out::println);
+                            }
                             break;
                         case "TEACHERS":
                             teachers.forEach(System.out::println);
+                            break;
+                        case "MONEY":
+                            if (parts.length > 2) {
+                                switch (parts[2].toUpperCase()) {
+                                    case "EARNED":
+                                        double totalEarned = courses.stream()
+                                                .mapToDouble(Course::getMoneyEarned)
+                                                .sum();
+                                        System.out.printf("Total money earned: $%.2f\n", totalEarned);
+                                        break;
+                                    case "SPENT":
+                                        double totalSpent = teachers.stream()
+                                                .mapToDouble(Teacher::getSalary)
+                                                .sum();
+                                        System.out.printf("Total money spent on salaries: $%.2f\n", totalSpent);
+                                        break;
+                                    default:
+                                        System.out.println("Usage: SHOW MONEY [EARNED|SPENT]");
+                                }
+                            }
+                            break;
+                        case "STATS":
+                            System.out.println("\n=== School Statistics ===");
+                            System.out.println("Number of Teachers: " + teachers.size());
+                            System.out.println("Number of Courses: " + courses.size());
+                            System.out.println("Number of Students: " + students.size());
+
+                            double totalEarned = courses.stream()
+                                    .mapToDouble(Course::getMoneyEarned)
+                                    .sum();
+                            double totalSalaries = teachers.stream()
+                                    .mapToDouble(Teacher::getSalary)
+                                    .sum();
+
+                            System.out.printf("Total Revenue: $%.2f\n", totalEarned);
+                            System.out.printf("Total Salaries: $%.2f\n", totalSalaries);
+                            System.out.printf("Net Profit: $%.2f\n", totalEarned - totalSalaries);
+
+                            long assignedCourses = courses.stream()
+                                    .filter(c -> c.getTeacher() != null)
+                                    .count();
+                            System.out.printf("Course Assignment Rate: %.1f%%\n",
+                                    (courses.size() > 0 ? (assignedCourses * 100.0 / courses.size()) : 0));
+                            break;
+                        case "PROFIT":
+                            double totalEarnedProfit = courses.stream().mapToDouble(Course::getMoneyEarned).sum();
+                            double totalSalariesProfit = teachers.stream().mapToDouble(Teacher::getSalary).sum();
+                            double profit = totalEarnedProfit - totalSalariesProfit;
+                            System.out.printf("Profit: $%.2f\n", profit);
                             break;
                         default:
                             System.out.println("Unknown SHOW target.");
@@ -164,30 +235,35 @@ public class Main {
                     String id = parts[2];
                     switch (type) {
                         case "COURSE":
-                            courses.stream().filter(c -> c.getCourseId().equals(id)).findFirst()
-                                    .ifPresentOrElse(System.out::println,
-                                            () -> System.out.println("Course not found."));
+                            Optional<Course> foundCourse = courses.stream().filter(c -> c.getCourseId().equals(id))
+                                    .findFirst();
+                            if (foundCourse.isPresent()) {
+                                System.out.println(foundCourse.get());
+                            } else {
+                                System.out.println("Course not found.");
+                            }
                             break;
                         case "STUDENT":
-                            students.stream().filter(s -> s.getStudentId().equals(id)).findFirst()
-                                    .ifPresentOrElse(System.out::println,
-                                            () -> System.out.println("Student not found."));
+                            Optional<Student> foundStudent = students.stream().filter(s -> s.getStudentId().equals(id))
+                                    .findFirst();
+                            if (foundStudent.isPresent()) {
+                                System.out.println(foundStudent.get());
+                            } else {
+                                System.out.println("Student not found.");
+                            }
                             break;
                         case "TEACHER":
-                            teachers.stream().filter(t -> t.getTeacherId().equals(id)).findFirst()
-                                    .ifPresentOrElse(System.out::println,
-                                            () -> System.out.println("Teacher not found."));
+                            Optional<Teacher> foundTeacher = teachers.stream().filter(t -> t.getTeacherId().equals(id))
+                                    .findFirst();
+                            if (foundTeacher.isPresent()) {
+                                System.out.println(foundTeacher.get());
+                            } else {
+                                System.out.println("Teacher not found.");
+                            }
                             break;
                         default:
                             System.out.println("Unknown LOOKUP type.");
                     }
-                    break;
-                case "SHOWPROFIT":
-                case "SHOW_PROFIT":
-                    double totalEarned = courses.stream().mapToDouble(Course::getMoneyEarned).sum();
-                    double totalSalaries = teachers.stream().mapToDouble(Teacher::getSalary).sum();
-                    double profit = totalEarned - totalSalaries;
-                    System.out.printf("Profit: $%.2f\n", profit);
                     break;
                 default:
                     System.out.println("Unknown command.");
@@ -237,7 +313,7 @@ public class Main {
                     System.out.println("Please enter a positive number.");
                 }
             } catch (NumberFormatException e) {
-                    System.out.println("Invalid input. Enter a numeric value.");
+                System.out.println("Invalid input. Enter a numeric value.");
             }
         }
         return number;
