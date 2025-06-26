@@ -173,23 +173,30 @@ public class Main {
                             teachers.forEach(System.out::println);
                             break;
                         case "MONEY":
-                            if (parts.length > 2) {
-                                switch (parts[2].toUpperCase()) {
-                                    case "EARNED":
-                                        double totalEarned = courses.stream()
-                                                .mapToDouble(Course::getMoneyEarned)
-                                                .sum();
-                                        System.out.printf("Total money earned: $%.2f\n", totalEarned);
-                                        break;
-                                    case "SPENT":
-                                        double totalSpent = teachers.stream()
-                                                .mapToDouble(Teacher::getSalary)
-                                                .sum();
-                                        System.out.printf("Total money spent on salaries: $%.2f\n", totalSpent);
-                                        break;
-                                    default:
-                                        System.out.println("Usage: SHOW MONEY [EARNED|SPENT]");
-                                }
+                            if (parts.length <= 2) {
+                                System.out.println("Usage: SHOW MONEY [EARNED|SPENT]");
+                                break;
+                            }
+                            if (parts.length > 3) {
+                                System.out.println("Invalid command. Too many arguments.");
+                                System.out.println("Usage: SHOW MONEY [EARNED|SPENT]");
+                                break;
+                            }
+                            switch (parts[2].toUpperCase()) {
+                                case "EARNED":
+                                    double totalEarned = courses.stream()
+                                            .mapToDouble(Course::getMoneyEarned)
+                                            .sum();
+                                    System.out.printf("Total money earned: $%.2f\n", totalEarned);
+                                    break;
+                                case "SPENT":
+                                    double totalSpent = teachers.stream()
+                                            .mapToDouble(Teacher::getSalary)
+                                            .sum();
+                                    System.out.printf("Total money spent on salaries: $%.2f\n", totalSpent);
+                                    break;
+                                default:
+                                    System.out.println("Invalid option. Usage: SHOW MONEY [EARNED|SPENT]");
                             }
                             break;
                         case "STATS":
