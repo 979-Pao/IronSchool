@@ -83,7 +83,7 @@ public class Main {
                 System.out.print("Email: ");
                 email = scanner.nextLine();
                 if (!isValidEmail(email)) {
-                    System.out.println("Invalid email format. Please enter a valid email (must contain '@').");
+                    System.out.println("Invalid email format. Please enter a valid email.");
                 }
             } while (!isValidEmail(email));
 
@@ -278,7 +278,7 @@ public class Main {
     }
 
     private static boolean isValidEmail(String email) {
-        return email.contains("@") && email.indexOf('@') != 0 && email.indexOf('@') != email.length() - 1;
+        return email.matches("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$");
     }
 
     private static int readInt(Scanner scanner, String message) {
