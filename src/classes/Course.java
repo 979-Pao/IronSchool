@@ -22,7 +22,7 @@ public class Course {
         this.teacher = null;
     }
 
-    // Funciones Getters
+    // Getters
     public String getCourseId() {
         return courseId;
     }
@@ -43,8 +43,8 @@ public class Course {
         return teacher;
     }
 
-    //  Funciones Setters
-    //  Permiten modificar los atributos del curso como el nombre, precio y profesor asignado
+    //  Setters
+    //  They allow you to modify course attributes such as name, price and assigned teacher.
     public void setName(String name) {
         this.name = name;
     }
@@ -57,8 +57,8 @@ public class Course {
         this.teacher = teacher;
     }
 
-    // Metodo para agregar dinero ganado por el curso
-    // Solo acepta valor positivo
+    // Method to add money earned by the course
+    // Only accepts positive value
     public void addMoneyEarned(double amount) {
         if (amount > 0) {
             this.moneyEarned += amount;

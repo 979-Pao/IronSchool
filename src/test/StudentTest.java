@@ -14,33 +14,33 @@ public class StudentTest {
 
     @BeforeEach
     public void setUp() {
-        student = new Student("Juan Pérez", "Calle Falsa 123", "juan@example.com");
-        course = new Course("Matemáticas", 100.0); // Creamos un curso de ejemplo
+        student = new Student("John Smith", "Street Test 123", "john@test.com");
+        course = new Course("Math", 100.0); // Create a sample course
     }
 
     @Test
     public void testStudentCreation() {
-        assertNotNull(student.getStudentId()); // Verificar que el ID no es nulo
-        assertEquals("Juan Pérez", student.getName());
-        assertEquals("Calle Falsa 123", student.getAddress());
-        assertEquals("juan@example.com", student.getEmail());
+        assertNotNull(student.getStudentId()); // Verify that the ID isn't null
+        assertEquals("John Smith", student.getName());
+        assertEquals("Street Test 123", student.getAddress());
+        assertEquals("john@test.com", student.getEmail());
     }
 
     @Test
     public void testEnrollInCourse() {
         student.enroll(course);
 
-        assertEquals(course, student.getCourse()); // El curso debe ser el que se inscribió
-        assertEquals(100.0, course.getMoneyEarned(), 0.01); // El dinero ganado por el curso debe actualizarse
+        assertEquals(course, student.getCourse()); // The course must be the one you signed up for
+        assertEquals(100.0, course.getMoneyEarned(), 0.01); // The money earned from the course must be updated
     }
 
     @Test
     public void testEnrollInCourseWhenAlreadyEnrolled() {
-        student.enroll(course); // Inscribir al estudiante en el primer curso
-        Course newCourse = new Course("Historia", 50.0);
-        student.enroll(newCourse); // Inscribir al estudiante en un nuevo curso
+        student.enroll(course); // Enroll the student in the first course
+        Course newCourse = new Course("History", 50.0);
+        student.enroll(newCourse); // Enroll the student in a new course
 
-        assertEquals(newCourse, student.getCourse()); // El curso debe ser el nuevo
-        assertEquals(50.0, newCourse.getMoneyEarned(), 0.01); // El nuevo curso debe tener el dinero ganado
+        assertEquals(newCourse, student.getCourse()); // The course must be the new one
+        assertEquals(50.0, newCourse.getMoneyEarned(), 0.01); // The new course must have the money earned
     }
 }

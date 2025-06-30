@@ -6,8 +6,8 @@ public class Student {
 
     private static int idCounter = 1;
 
-    private final String uuid;      // UUID para uso interno
-    private final String studentId;// ID legible tipo S001
+    private final String uuid;      // UUID for internal use
+    private final String studentId;// Readable ID type S001
     private String name;
     private String address;
     private String email;
@@ -15,12 +15,12 @@ public class Student {
 
     // Constructor
     public Student(String name, String address, String email) {
-        this.uuid = UUID.randomUUID().toString(); // Generación automática de studentId
-        this.studentId = String.format("S%03d", idCounter++); // ID visible
+        this.uuid = UUID.randomUUID().toString(); // Automatic generation of studentId
+        this.studentId = String.format("S%03d", idCounter++); // Visible ID
         this.name = name;
         this.address = address;
         this.email = email;
-        this.course = null; // Inicialmente no está inscrito en ningún curso
+        this.course = null; // Initially the student isn't enrolled in any course
     }
 
     // Getters
@@ -61,10 +61,10 @@ public class Student {
         this.course = course;
     }
 
-    // Metodo para inscribir a un estudiante en un curso
+    // Method to enroll a student in a course
     public void enroll(Course course) {
         this.course = course;
-        // Actualizamos el dinero ganado por el curso
+        // We update the money earned for the course
         if (course != null) {
             course.addMoneyEarned(course.getPrice());
         }

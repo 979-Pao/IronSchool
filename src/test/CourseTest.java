@@ -49,11 +49,11 @@ public class CourseTest {
         course.addMoneyEarned(999.99);
         assertEquals(999.99, course.getMoneyEarned());
 
-        // Test añadiendo mas dinero
+        // Test adding more money
         course.addMoneyEarned(500.0);
         assertEquals(1499.99, course.getMoneyEarned());
 
-        // Test añadiendo dinero negativo (no deberia modificar el total)
+        // Test adding negative money (shouldn't change the total)
         course.addMoneyEarned(-100.0);
         assertEquals(1499.99, course.getMoneyEarned());
     }
@@ -67,7 +67,7 @@ public class CourseTest {
                 + ", Teacher: Not Assigned";
         assertEquals(expectedString, course.toString());
 
-        // Test con profesor asignado
+        // Test with assigned teacher
         course.setTeacher(teacher);
         expectedString = "Course ID: " + course.getCourseId()
                 + ", Name: Modulo 2"

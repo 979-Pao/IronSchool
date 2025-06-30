@@ -6,14 +6,14 @@ public class Teacher {
     private static int idCounter = 1;
 
     private final String uuid;
-    private final String teacherId; // ID legible tipo T001
+    private final String teacherId; // Readable ID type T001
     private String name;
     private double salary;
 
     // Constructor
     public Teacher(String name, double salary) {
-        this.uuid = UUID.randomUUID().toString(); // Generación automática de teacherId
-        this.teacherId = String.format("T%03d", idCounter++);     // ID visible
+        this.uuid = UUID.randomUUID().toString(); // Automatic generation of teacherId
+        this.teacherId = String.format("T%03d", idCounter++); // Visible ID
         this.name = name;
         this.salary = salary;
     }
