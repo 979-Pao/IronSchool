@@ -1,10 +1,15 @@
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Scanner;
+
 import classes.Course;
 import classes.Student;
 import classes.Teacher;
 
-import java.util.*;
-
 public class Main {
+
     private static final String BOLD = "\u001B[1m";
     private static final String UNDERLINE = "\u001B[4m";
     private static final String RED = "\u001B[31m";
@@ -44,7 +49,7 @@ public class Main {
         System.out.println("==============================\n");
 
         // Teachers
-        int teacherCount = readInt(scanner, "Enter number of teachers to create: ");
+        int teacherCount = readIntMinimum(scanner, "Enter number of teachers to create: ", 1);
         for (int i = 0; i < teacherCount; i++) {
             System.out.println("\nEnter details for " + BOLD + "Teacher " + (i + 1) + RESET + ":");
             String name;
@@ -61,7 +66,7 @@ public class Main {
         }
 
         // Courses
-        int courseCount = readInt(scanner, "\nEnter number of courses to create: ");
+        int courseCount = readIntMinimum(scanner, "\nEnter number of courses to create: ", 1);
         for (int i = 0; i < courseCount; i++) {
             System.out.println("\nEnter details for " + BOLD + "Course " + (i + 1) + RESET + ":");
             System.out.print("📚 Name: ");
@@ -71,7 +76,7 @@ public class Main {
         }
 
         // Students
-        int studentCount = readInt(scanner, "\nEnter number of students to create: ");
+        int studentCount = readIntMinimum(scanner, "\nEnter number of students to create: ", 1);
         for (int i = 0; i < studentCount; i++) {
             System.out.println("\nEnter details for " + BOLD + "Student " + (i + 1) + RESET + ":");
             String name;
@@ -104,8 +109,9 @@ public class Main {
             System.out.print("> ");
             String input = scanner.nextLine().trim();
 
-            if (input.equalsIgnoreCase("EXIT"))
+            if (input.equalsIgnoreCase("EXIT")) {
                 break;
+            }
 
             String[] parts = input.split(" ");
             String command = parts[0].toUpperCase();
@@ -151,7 +157,7 @@ public class Main {
 
                 case "SHOW":
                     if (parts.length < 2) {
-                        System.out.println(YELLOW + "Usage: SHOW [COURSES|STUDENTS|TEACHERS|MONEY|STATS]"+ RESET);
+                        System.out.println(YELLOW + "Usage: SHOW [COURSES|STUDENTS|TEACHERS|MONEY|STATS]" + RESET);
                         break;
                     }
                     switch (parts[1].toUpperCase()) {
@@ -159,8 +165,8 @@ public class Main {
                             if (parts.length > 2) {
                                 String teacherId = parts[2];
                                 courses.stream()
-                                        .filter(c -> c.getTeacher() != null &&
-                                                c.getTeacher().getTeacherId().equals(teacherId))
+                                        .filter(c -> c.getTeacher() != null
+                                        && c.getTeacher().getTeacherId().equals(teacherId))
                                         .forEach(System.out::println);
                             } else {
                                 courses.forEach(System.out::println);
@@ -170,8 +176,8 @@ public class Main {
                             if (parts.length > 2) {
                                 String courseId = parts[2];
                                 students.stream()
-                                        .filter(s -> s.getCourse() != null &&
-                                                s.getCourse().getCourseId().equals(courseId))
+                                        .filter(s -> s.getCourse() != null
+                                        && s.getCourse().getCourseId().equals(courseId))
                                         .forEach(System.out::println);
                             } else {
                                 students.forEach(System.out::println);
@@ -297,17 +303,17 @@ public class Main {
         return email.matches("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$");
     }
 
-    private static int readInt(Scanner scanner, String message) {
+    private static int readIntMinimum(Scanner scanner, String message, int minimum) {
         int number = -1;
         while (true) {
             System.out.print(message);
             String input = scanner.nextLine();
             try {
                 number = Integer.parseInt(input);
-                if (number >= 0) {
+                if (number >= minimum) {
                     break;
                 } else {
-                    System.out.println(RED + "Please enter a positive number." + RESET);
+                    System.out.println(RED + "Please enter a number greater than or equal to " + minimum + "." + RESET);
                 }
             } catch (NumberFormatException e) {
                 System.out.println(RED + "Invalid input. Enter a numeric value." + RESET);
