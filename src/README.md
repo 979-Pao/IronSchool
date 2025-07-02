@@ -1,11 +1,11 @@
 
 # 🎓 School Management System 🎓
 
-Este proyecto en Java simula un sistema de gestión escolar, permitiendo registrar cursos, estudiantes, profesores, así como realizar operaciones de inscripción, asignación y consultas estadísticas.
+This Java project simulates a school management system, allowing you to register courses, students, and teachers, as well as perform registration, assignment, and statistical queries.
 
 ---
 
-## 📦 Estructura del Proyecto
+## 📦 Project structure
 
 ```
 src/
@@ -26,63 +26,63 @@ src/
 
 ---
 
-## 🛠️ Tecnologías utilizadas
+## 🛠️ Technologies used
 
 - **Java**
 - **JUnit**
-- Terminal para entrada/salida (modo consola)
+- Input/output terminal (console mode)
 
 ---
 
-## 🚀 Cómo ejecutar el proyecto
+## 🚀 How to run the project
 
-1. Descarga el repositorio de GitHub.
-2. Abre el proyecto con un editor de código, como por ejemplo, `IntelliJ`.
-3. Abre el archivo `Main.java` e inicialo con **Run**
-
----
-
-## 🧪 Pruebas Unitarias
-
-El proyecto incluye pruebas con **JUnit** para validar el comportamiento de las clases principales.
-
-Para ejecutarlas, asegúrate de tener JUnit configurado en tu entorno, como por ejemplo, `IntelliJ`.
-
-Clases con pruebas:
-- `CourseTest`: Validación de creación, asignación de profesor, ingreso de dinero, etc.
-- `StudentTest`: Verificación de inscripción en cursos y cambio de curso.
-- `TeacherTest`: Validación de datos del profesor.
+1. Download the GitHub repository.
+2. Open the project with a code editor, such as `IntelliJ`.
+3. Open the `Main.java` file and start it with **Run**.
 
 ---
 
-## 🔵 Funcionalidades principales
+## 🧪 Unit Tests
 
-### 🧩 Gestión de Entidades
-- **👨🏻‍🏫 Profesor**: Nombre y salario.
-- **📚 Curso**: Nombre, precio, profesor asignado, ganancias.
-- **👤 Estudiante**: Nombre, dirección, correo electrónico, curso inscrito.
+The project includes **JUnit** tests to validate the behavior of the main classes.
 
-### 🧾 Comandos disponibles
+To run them, make sure you have JUnit configured in your environment, such as `IntelliJ`.
 
-- `ENROLL [STUDENT_ID] [COURSE_ID]`: Inscribir estudiante a un curso.
-- `ASSIGN [TEACHER_ID] [COURSE_ID]`: Asignar profesor a un curso.
-- `SHOW COURSES`: Lista de todos los cursos.
-- `SHOW COURSES [TEACHER_ID]`: Cursos impartidos por un profesor.
-- `SHOW STUDENTS`: Lista de todos los estudiantes.
-- `SHOW STUDENTS [COURSE_ID]`: Estudiantes inscritos en un curso.
-- `SHOW TEACHERS`: Lista de todos los profesores.
-- `SHOW MONEY EARNED`: Total de dinero ganado por los cursos.
-- `SHOW MONEY SPENT`: Total gastado en salarios.
-- `SHOW STATS`: Estadísticas generales (ganancias, gastos, rentabilidad).
-- `SHOW PROFIT`: Cálculo del beneficio neto.
-- `LOOKUP COURSE [ID]`: Información detallada de un curso.
-- `LOOKUP STUDENT [ID]`: Información de un estudiante.
-- `LOOKUP TEACHER [ID]`: Información de un profesor.
-- `EXIT`: Salir del sistema.
+Classes with tests:
+- `CourseTest`: Validation of creation, instructor assignment, money entry, etc.
+- `StudentTest`: Verification of course enrollment and course change.
+- `TeacherTest`: Validation of instructor data.
 
 ---
 
-## ▶️ Ejemplo de ejecución
+## 🔵 Main features
+
+### 🧩 Entity Management
+- **👨🏻‍🏫 Teacher**: Name and salary.
+- **📚 Course**: Name, price, assigned teacher, earnings.
+- **👤 Student**: Name, address, email, course enrolled.
+
+### 🧾 Available commands
+
+- `ENROLL [STUDENT_ID] [COURSE_ID]`: Enroll student in a course.
+- `ASSIGN [TEACHER_ID] [COURSE_ID]`: Assign teacher to a course.
+- `SHOW COURSES`: List all courses.
+- `SHOW COURSES [TEACHER_ID]`: List courses taught by a teacher.
+- `SHOW STUDENTS`: List all students.
+- `SHOW STUDENTS [COURSE_ID]`: List students in a specific course.
+- `SHOW TEACHERS`: List all teachers.
+- `SHOW MONEY EARNED`: Show total money earned from courses.
+- `SHOW MONEY SPENT`: Show total money spent on salaries.
+- `SHOW STATS`: Display school statistics.
+- `SHOW PROFIT`: Calculate school profit.
+- `LOOKUP COURSE [ID]`: View details of a course.
+- `LOOKUP STUDENT [ID]`: View details of a student.
+- `LOOKUP TEACHER [ID]`: View details of a teacher.
+- `EXIT`: Exit the system.
+
+---
+
+## ▶️ Example of execution
 
 ```
 
@@ -136,22 +136,22 @@ You can now enter commands [ENROLL-ASSIGN-SHOW-LOOKUP]. Type 'EXIT' to quit.
 
 ---
 
-## ✅ Validaciones
+## ✅ Validations
 
-- Los nombres de personas no pueden contener números.
-- El correo electrónico debe tener un formato válido.
-- No se permite ingresar números negativos.
-- Los IDs se generan automáticamente para profesores, estudiantes y cursos.
-- Las entradas mal formateadas son manejadas con mensajes de error amigables.
+- Names can't contain numbers.
+- Email must be in a valid format.
+- Negative numbers aren't allowed.
+- IDs are automatically generated for instructors, students, and courses.
+- Incorrectly formatted entries are handled with friendly error messages.
 
 ---
 
-## 📈 Métricas y Estadísticas
+## 📈 Metrics and Statistics
 
-El comando `SHOW STATS` incluye:
+The `SHOW STATS` command includes:
 
-- Total de profesores, estudiantes y cursos.
-- Ganancias totales.
-- Salarios pagados.
-- Rentabilidad (beneficio neto).
-- Porcentaje de cursos con profesor asignado.
+- Total number of instructors, students, and courses.
+- Total revenue.
+- Salaries paid.
+- Profitability (net profit).
+- Percentage of courses with an assigned instructor.
