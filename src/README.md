@@ -155,3 +155,13 @@ The `SHOW STATS` command includes:
 - Salaries paid.
 - Profitability (net profit).
 - Percentage of courses with an assigned instructor.
+
+
+---
+
+## 👥 Contributions
+
+ - [@979-Pao](https://github.com/979-Pao)
+ - [@oneceroonedev](https://github.com/oneceroonedev)
+ - [@Xarlizard](https://github.com/xarlizard)
+
