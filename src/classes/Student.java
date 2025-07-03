@@ -7,7 +7,7 @@ public class Student {
     private static int idCounter = 1;
 
     private final String uuid;      // UUID for internal use
-    private final String studentId;// Readable ID type S001
+    private final String studentId; // Readable ID type S001
     private String name;
     private String address;
     private String email;

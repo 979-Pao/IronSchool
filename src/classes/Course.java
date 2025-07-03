@@ -6,16 +6,16 @@ public class Course {
 
     private static int idCounter = 1;
 
-    private final String uuid;      // UUID para uso interno
-    private final String courseId;  // ID legible tipo C001
+    private final String uuid;      // UUID for internal use
+    private final String courseId;  // Readable ID type C001
     private String name;
     private double price;
     private double moneyEarned;
     private Teacher teacher;
 
     public Course(String name, double price) {
-        this.uuid = UUID.randomUUID().toString();                // Uso interno
-        this.courseId = String.format("C%03d", idCounter++);     // ID visible
+        this.uuid = UUID.randomUUID().toString();                // Internal use
+        this.courseId = String.format("C%03d", idCounter++);     // Visible ID
         this.name = name;
         this.price = price;
         this.moneyEarned = 0.0;
